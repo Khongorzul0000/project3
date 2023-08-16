@@ -5,7 +5,7 @@ const urlrouter = express.Router()
 
 urlrouter
 .get("/urls", getUrls)
-.get("/:shortUrl", shortUrl)
+.get("/short/:shortUrl", shortUrl)
 .post("/create", createUrl)
 .delete("/delete/:id", deleteUrl)
 

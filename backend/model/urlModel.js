@@ -10,7 +10,14 @@ const urlSchema = new Schema ({
         type:String, 
         required:true, 
         default:shortid.generate
+    },
+    user:{
+        type:Schema.Types.ObjectId,
+        ref:"Üser", 
+        required:true
     }
+},{
+    toJSON:{virtuals:true}
 })
 
 const Url = model("Url", urlSchema)
