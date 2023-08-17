@@ -4,10 +4,10 @@ const {register, getUsers, deleteAll, login, getUser} = require("../controller/u
 const userrouter = express.Router()
 
 userrouter
-.get("/getuser", getUsers)
-.get("/user/:id", getUser)
-.post("/register", register)
-.post("/login", login)
-.delete("/deletealluser", deleteAll)
+.get("/User/getuser", getUsers)
+.get("/User/user/:id", getUser)
+.post("/User/register", register)
+.post("/User/login", login)
+.delete("/User/deletealluser", deleteAll)
 
 module.exports = userrouter

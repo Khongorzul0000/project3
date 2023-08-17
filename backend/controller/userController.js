@@ -39,13 +39,13 @@ const login = async (req, res) => {
 };
 
 const getUsers = async (_req, res) => {
-  const result = await User.find({});
+  const result = await User.find({}) //.populate({ path: "links" });
   res.send(result);
 };
 
 const getUser = async (req, res) => {
   const id = req.params.id;
-  const result = await User.findById({ _id: id }).populate({ path: "links" });
+  const result = await User.findById({ _id: id }) //.populate({ path: "links" });
   res.send(result);
 };
 

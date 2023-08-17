@@ -4,9 +4,9 @@ const {createUrl, getUrls, shortUrl, deleteUrl} = require("../controller/urlCont
 const urlrouter = express.Router()
 
 urlrouter
-.get("/urls", getUrls)
-.get("/short/:shortUrl", shortUrl)
-.post("/create", createUrl)
-.delete("/delete/:id", deleteUrl)
+.get("/Url/urls", getUrls)
+.get("/Url/:shortUrl", shortUrl)
+.post("/Url/create", createUrl)
+.delete("/Url/delete/:id", deleteUrl)
 
 module.exports = urlrouter

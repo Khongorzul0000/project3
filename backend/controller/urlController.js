@@ -11,7 +11,7 @@ const createUrl = async (req, res) => {
 };
 
 const getUrls = async (_req, res) => {
-  const urls = await Url.find({});
+  const urls = await Url.find({}).populate({ path: "user" });
   res.send(urls);
 };
 

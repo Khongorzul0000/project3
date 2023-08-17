@@ -14,16 +14,19 @@ const userSchema = new Schema({
         default:Date.now()
     },
 },
+// {
+//     toJSON: { virtuals: true },
+// }
 {
-    toJSON: { virtuals: true },
-}
+    timestamps: true
+  }
 )
 
-userSchema.virtual("links", {
-    ref:"Url", 
-    localField:"_id",
-    foreignField:"user"
-})
+// userSchema.virtual("links", {
+//     ref:"Url", 
+//     localField:"_id",
+//     foreignField:"user"
+// })
 
 const User = model("User", userSchema)
 module.exports = User

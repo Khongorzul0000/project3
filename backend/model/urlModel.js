@@ -13,12 +13,16 @@ const urlSchema = new Schema ({
     },
     user:{
         type:Schema.Types.ObjectId,
-        ref:"Üser", 
+        ref:"User", 
         required:true
-    }
-},{
-    toJSON:{virtuals:true}
-})
+    }},
+// },{
+//     toJSON:{virtuals:true}
+// }
+{
+    timestamps: true
+  }
+)
 
 const Url = model("Url", urlSchema)
 module.exports = Url
