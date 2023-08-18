@@ -1,0 +1,1 @@
+const TOKEN_SECRET = 'some token secret some token secret'

@@ -15,6 +15,12 @@ const getUrls = async (_req, res) => {
   res.send(urls);
 };
 
+const getUrl = async (req, res) =>{
+  const id = req.params.id
+  const result = await Url.findById({_id:id})
+  res.send(result)
+}
+
 const shortUrl = async (req, res) => {
   const shortUrl = await Url.findOne({ short: req.params.shortUrl });
   if (shortUrl == null) return res.json({
@@ -29,4 +35,4 @@ const deleteUrl = async (req, res) =>{
     res.send( result)
 }
 
-module.exports = { createUrl, getUrls, shortUrl, deleteUrl };
+module.exports = { createUrl, getUrls, shortUrl, deleteUrl, getUrl };
