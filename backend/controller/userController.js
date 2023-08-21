@@ -1,7 +1,6 @@
 const User = require("../model/userModel");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const TOKEN_SECRET = require("../token.js");
 
 const register = async (req, res) => {
   const { username, password } = req.body;
@@ -9,12 +8,12 @@ const register = async (req, res) => {
 
   if (user) {
     return res.json({
-      message: "User alreafy exists!, You must use another username",
+      error: "User already exists!, You must use another username",
     });
   }
 
-  if (!password || password.length < 8) {
-    return res.json({ message: "Something wrong with pass" });
+  if (!password || password.length < 6) {
+    return res.json({ error: "Password should be at least 6 character long" });
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
@@ -28,12 +27,12 @@ const login = async (req, res) => {
   const user = await User.findOne({ username });
 
   if (!user) {
-    return res.json({ message: "User doesn't exist" });
+    return res.json({ error: "User doesn't exist" });
   }
   const isPasswordValid = await bcrypt.compare(password, user.password);
 
   if (!isPasswordValid) {
-    return res.json({ message: "Password is incorrect" });
+    return res.json({ error: "Something is wrong with password" });
   }
 
   const token = jwt.sign({ id: user._id }, "secret");
@@ -83,25 +82,30 @@ const verifyToken = async (req, res) => {
   //     username:userFound.username,
   //   })
   // })
-  const token = req.headers.authorization;
-  console.log(token, "authenticateToken");
+  // const token = req.headers.authorization;
+  // console.log(token, "authenticateToken");
 
-  if (token == null) return res.sendStatus(401);
+  // if (token == null) return res.sendStatus(401);
 
-  jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, result) => {
-    if (err) {
-      res.send(err);
-    } else {
-      const username = result.username;
-      const user = await userModel.findOne({ username: username });
-      res.send(user);
-    }
-  });
+  // jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, async (err, result) => {
+  //   if (err) {
+  //     res.send(err);
+  //   } else {
+  //     const username = result.username;
+  //     const user = await userModel.findOne({ username: username });
+  //     res.send(user);
+  //   }
+  // });
+  const {token} = req.cookies
+  if(token){
+    jwt.verify(token, process.env.TOKEN_SECRET, {}, (err, user) =>{
+      if(err) throw err;
+      res.json(user)
+    })
+  }else{
+    res.json(null)
+  }
 };
 
-const Logout = async (req, res) => {
-  res.clearCookie("authorized");
-  res.status(200);
-};
 
 module.exports = { register, getUsers, deleteAll, login, getUser, verifyToken };
